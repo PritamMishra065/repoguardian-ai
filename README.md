@@ -88,9 +88,24 @@ npm run dev
 
 ## 📦 Deployment
 
--   **Frontend**: Deploy to Vercel (Import `frontend` folder).
--   **Backend**: 
-    -   **Local**: Keep running on your machine (connect via ngrok if needed).
-    -   **Cloud**: Requires switching from Ollama to Groq/OpenAI for deployment on Render/Railway.
+### Frontend (Vercel)
+1.  Push code to GitHub.
+2.  Import `frontend` folder to Vercel.
+3.  Deploy.
 
-See `DEPLOYMENT_GUIDE.md` (if available) for more details.
+### Backend (Render / Cloud)
+The backend supports **Groq** for cloud inference, removing the need for local Ollama.
+
+1.  Create a **Web Service** on Render.
+2.  Connect this repository.
+3.  **Environment Variables**:
+    -   `GITHUB_TOKEN`: Your GitHub PAT.
+    -   `GROQ_API_KEY`: Get from [Groq Console](https://console.groq.com).
+4.  Render will auto-detect `gunicorn` via the `Procfile`.
+
+> **Note**: If `GROQ_API_KEY` is missing, the backend defaults to looking for a local Ollama instance.
+
+### Backend (Local)
+Keep running `python app.py` on your machine. Use [ngrok](https://ngrok.com) to expose it if sharing the frontend link.
+
+See `DEPLOYMENT_GUIDE.md` for full details.
