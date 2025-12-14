@@ -100,4 +100,4 @@ def kestra_pr_analysis():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 if __name__ == "__main__":
-    app.run(debug=True) # ✅ debug=True helps you see errors in the browser
+    app.run() # ✅ debug=True helps you see errors in the browser
