@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>RepoGuardian AI (Free)</h2>
+
+<input id="repo" placeholder="https://github.com/user/repo"/>
+<button onclick="run()">Analyze</button>
+
+<pre id="out"></pre>
+
+<script>
+async function run(){
+  const r = await fetch('/analyze',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({repo:repo.value})
+  });
+  out.innerText = JSON.stringify(await r.json(),null,2);
+}
+</script>
+</body>
+</html>

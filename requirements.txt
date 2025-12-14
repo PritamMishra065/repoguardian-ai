@@ -1,0 +1,4 @@
+flask
+PyGithub
+requests
+flask-cors

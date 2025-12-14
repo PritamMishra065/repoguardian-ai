@@ -1,0 +1,56 @@
+id: repoguardian_pr_analysis_simple
+namespace: hackathon.repoguardian
+
+# Alternative simpler version that does everything in one task
+# Use this if the two-task version has issues with output passing
+
+triggers:
+  - id: github_pr
+    type: io.kestra.plugin.github.triggers.PullRequest
+    repository: "{{ vars.github_repository }}"
+    events:
+      - opened
+      - synchronize
+
+tasks:
+  - id: analyze_and_decide
+    type: io.kestra.plugin.scripts.python.Script
+    script: |
+      import os
+      import sys
+      
+      # Add current directory to path for imports
+      sys.path.insert(0, os.getcwd())
+      
+      from kestra_integration import (
+          analyze_pr_for_kestra,
+          make_decision,
+          execute_decision
+      )
+      
+      # Get PR data from trigger context
+      repo_owner = "{{ trigger.repository.owner }}"
+      repo_name = "{{ trigger.repository.name }}"
+      pr_number = {{ trigger.pullRequest.number }}
+      
+      try:
+          # Analyze the PR
+          print(f"Analyzing PR #{pr_number} in {repo_owner}/{repo_name}...")
+          analysis = analyze_pr_for_kestra(repo_owner, repo_name, pr_number)
+          print(f"Analysis result: {analysis}")
+          
+          # Make decision
+          decision = make_decision(analysis)
+          print(f"Decision: {decision}")
+          
+          # Execute the decision
+          result = execute_decision(decision, repo_owner, repo_name, pr_number, analysis)
+          print(f"Action result: {result}")
+          
+          print(f"\n✅ PR analysis complete for PR #{pr_number}")
+          
+      except Exception as e:
+          print(f"❌ Error processing PR: {str(e)}")
+          raise
+
+

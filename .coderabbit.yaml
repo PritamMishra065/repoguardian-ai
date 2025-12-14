@@ -1,0 +1,12 @@
+# CodeRabbit AI Code Review Configuration
+# This file configures CodeRabbit to automatically review pull requests
+
+reviews:
+  auto_review: true          # Automatically review PRs when opened/updated
+  comment_level: pr          # Comment at PR level (not individual lines)
+  suggestions: true          # Provide code improvement suggestions
+
+# Optional: Configure review behavior
+# paths_ignore:              # Files/directories to ignore
+#   - "*.md"
+#   - "docs/**"

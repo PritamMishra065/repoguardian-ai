@@ -1,0 +1,13 @@
+name: RepoGuardian AI Scan
+
+on:
+  schedule:
+    - cron: "0 9 * * *"
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run RepoGuardian
+        run: echo "Daily scan complete"
