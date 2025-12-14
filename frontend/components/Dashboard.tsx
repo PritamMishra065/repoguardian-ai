@@ -17,7 +17,7 @@ export function Dashboard() {
         setError("");
         setData(null);
         try {
-            const res = await fetch("https://unmalevolent-saccharic-joaquina.ngrok-free.dev/", {
+            const res = await fetch("https://unmalevolent-saccharic-joaquina.ngrok-free.dev", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ repo }),
