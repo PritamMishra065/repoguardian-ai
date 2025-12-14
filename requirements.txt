@@ -2,3 +2,5 @@ flask
 PyGithub
 requests
 flask-cors
+groq
+gunicorn
